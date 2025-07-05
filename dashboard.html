@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - YBY Innovations</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><h2>YBY Innovations</h2></a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="exams.html" class="nav-link">Exams</a>
+                <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+                <a href="dashboard.html" class="nav-link active">Dashboard</a>
+                <div class="user-menu">
+                    <div class="user-avatar" id="user-avatar">
+                        <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop" alt="User Avatar">
+                    </div>
+                </div>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div class="welcome-section">
+                <h1>Welcome back, Arjun!</h1>
+                <p>Here's your learning progress and achievements</p>
+            </div>
+            <div class="quick-stats">
+                <div class="quick-stat">
+                    <i class="fas fa-trophy"></i>
+                    <div>
+                        <h3>#156</h3>
+                        <p>Current Rank</p>
+                    </div>
+                </div>
+                <div class="quick-stat">
+                    <i class="fas fa-fire"></i>
+                    <div>
+                        <h3>23</h3>
+                        <p>Day Streak</p>
+                    </div>
+                </div>
+                <div class="quick-stat">
+                    <i class="fas fa-chart-line"></i>
+                    <div>
+                        <h3>2,847</h3>
+                        <p>Total Points</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="dashboard-main">
+                <div class="performance-overview">
+                    <h2>Performance Overview</h2>
+                    <div class="performance-cards">
+                        <div class="performance-card">
+                            <div class="card-header">
+                                <h3>Overall Progress</h3>
+                                <span class="trend positive">+5.2%</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="score-display">
+                                    <span class="score">84.5%</span>
+                                    <span class="label">Average Score</span>
+                                </div>
+                                <div class="progress-chart">
+                                    <canvas id="progress-chart" width="200" height="100"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="performance-card">
+                            <div class="card-header">
+                                <h3>Subject Mastery</h3>
+                                <span class="trend neutral">Stable</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="subject-progress">
+                                    <div class="subject-item">
+                                        <span class="subject-name">Physics</span>
+                                        <div class="progress-bar">
+                                            <div class="progress physics" style="width: 87%"></div>
+                                        </div>
+                                        <span class="percentage">87%</span>
+                                    </div>
+                                    <div class="subject-item">
+                                        <span class="subject-name">Chemistry</span>
+                                        <div class="progress-bar">
+                                            <div class="progress chemistry" style="width: 82%"></div>
+                                        </div>
+                                        <span class="percentage">82%</span>
+                                    </div>
+                                    <div class="subject-item">
+                                        <span class="subject-name">Mathematics</span>
+                                        <div class="progress-bar">
+                                            <div class="progress mathematics" style="width: 79%"></div>
+                                        </div>
+                                        <span class="percentage">79%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="performance-card">
+                            <div class="card-header">
+                                <h3>Weekly Goals</h3>
+                                <span class="trend positive">On Track</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="goals-list">
+                                    <div class="goal-item">
+                                        <div class="goal-info">
+                                            <span class="goal-name">Daily Practice</span>
+                                            <span class="goal-progress">6/7 days</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 86%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="goal-item">
+                                        <div class="goal-info">
+                                            <span class="goal-name">Score Target</span>
+                                            <span class="goal-progress">84.5/85%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 99%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="goal-item">
+                                        <div class="goal-info">
+                                            <span class="goal-name">Rank Improvement</span>
+                                            <span class="goal-progress">+12 ranks</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h2>Recent Activity</h2>
+                    <div class="activity-timeline">
+                        <div class="activity-item">
+                            <div class="activity-icon success">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Completed JEE Physics Test</h4>
+                                <p>Scored 28/30 in today's physics practice</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                            <div class="activity-score">+95 pts</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon achievement">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Rank Improvement</h4>
+                                <p>Moved up 12 positions to rank #156</p>
+                                <span class="activity-time">3 hours ago</span>
+                            </div>
+                            <div class="activity-score">Rank ↑</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon streak">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>23-Day Streak</h4>
+                                <p>Maintained daily practice streak</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                            <div class="activity-score">Streak</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon success">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>NEET Biology Test</h4>
+                                <p>Excellent performance with 42/45 correct</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                            <div class="activity-score">+168 pts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="upcoming-tests">
+                    <h2>Upcoming Tests</h2>
+                    <div class="test-schedule">
+                        <div class="test-item">
+                            <div class="test-date">
+                                <span class="day">Tomorrow</span>
+                                <span class="time">9:00 AM</span>
+                            </div>
+                            <div class="test-info">
+                                <h4>JEE Main Practice</h4>
+                                <p>Physics, Chemistry, Mathematics</p>
+                                <div class="test-details">
+                                    <span><i class="fas fa-clock"></i> 30 min</span>
+                                    <span><i class="fas fa-question"></i> 30 questions</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline">Set Reminder</button>
+                        </div>
+                        <div class="test-item">
+                            <div class="test-date">
+                                <span class="day">Tomorrow</span>
+                                <span class="time">2:00 PM</span>
+                            </div>
+                            <div class="test-info">
+                                <h4>NEET Practice</h4>
+                                <p>Physics, Chemistry, Biology</p>
+                                <div class="test-details">
+                                    <span><i class="fas fa-clock"></i> 45 min</span>
+                                    <span><i class="fas fa-question"></i> 45 questions</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline">Set Reminder</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-sidebar">
+                <div class="today-summary">
+                    <h3>Today's Summary</h3>
+                    <div class="summary-stats">
+                        <div class="summary-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <span class="number">1</span>
+                                <span class="label">Tests Completed</span>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <span class="number">28m</span>
+                                <span class="label">Study Time</span>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <i class="fas fa-star"></i>
+                            <div>
+                                <span class="number">95</span>
+                                <span class="label">Points Earned</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="study-calendar">
+                    <h3>Study Calendar</h3>
+                    <div class="calendar-grid">
+                        <div class="calendar-header">
+                            <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                        </div>
+                        <div class="calendar-body">
+                            <span class="calendar-day"></span>
+                            <span class="calendar-day"></span>
+                            <span class="calendar-day"></span>
+                            <span class="calendar-day">1</span>
+                            <span class="calendar-day completed">2</span>
+                            <span class="calendar-day completed">3</span>
+                            <span class="calendar-day completed">4</span>
+                            <span class="calendar-day completed">5</span>
+                            <span class="calendar-day completed">6</span>
+                            <span class="calendar-day completed">7</span>
+                            <span class="calendar-day completed">8</span>
+                            <span class="calendar-day completed">9</span>
+                            <span class="calendar-day completed">10</span>
+                            <span class="calendar-day completed">11</span>
+                            <span class="calendar-day completed">12</span>
+                            <span class="calendar-day completed">13</span>
+                            <span class="calendar-day completed">14</span>
+                            <span class="calendar-day completed">15</span>
+                            <span class="calendar-day completed">16</span>
+                            <span class="calendar-day completed">17</span>
+                            <span class="calendar-day completed">18</span>
+                            <span class="calendar-day completed">19</span>
+                            <span class="calendar-day completed">20</span>
+                            <span class="calendar-day completed">21</span>
+                            <span class="calendar-day completed">22</span>
+                            <span class="calendar-day current">23</span>
+                            <span class="calendar-day">24</span>
+                            <span class="calendar-day">25</span>
+                            <span class="calendar-day">26</span>
+                            <span class="calendar-day">27</span>
+                            <span class="calendar-day">28</span>
+                            <span class="calendar-day">29</span>
+                        </div>
+                    </div>
+                    <div class="calendar-legend">
+                        <div class="legend-item">
+                            <span class="legend-color completed"></span>
+                            <span>Completed</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color current"></span>
+                            <span>Today</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="achievements-showcase">
+                    <h3>Recent Achievements</h3>
+                    <div class="achievement-list">
+                        <div class="achievement-badge">
+                            <i class="fas fa-trophy gold"></i>
+                            <div>
+                                <h4>Top 200</h4>
+                                <p>Entered top 200 rankings</p>
+                            </div>
+                        </div>
+                        <div class="achievement-badge">
+                            <i class="fas fa-fire orange"></i>
+                            <div>
+                                <h4>20+ Day Streak</h4>
+                                <p>Consistent daily practice</p>
+                            </div>
+                        </div>
+                        <div class="achievement-badge">
+                            <i class="fas fa-star purple"></i>
+                            <div>
+                                <h4>Perfect Score</h4>
+                                <p>100% in Physics test</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <a href="exams.html" class="action-btn">
+                            <i class="fas fa-play"></i>
+                            <span>Start Practice</span>
+                        </a>
+                        <a href="leaderboard.html" class="action-btn">
+                            <i class="fas fa-trophy"></i>
+                            <span>View Rankings</span>
+                        </a>
+                        <a href="profile.html" class="action-btn">
+                            <i class="fas fa-user"></i>
+                            <span>Edit Profile</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

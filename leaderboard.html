@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - YBY Innovations</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><h2>YBY Innovations</h2></a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="exams.html" class="nav-link">Exams</a>
+                <a href="leaderboard.html" class="nav-link active">Leaderboard</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <div class="user-menu">
+                    <div class="user-avatar" id="user-avatar">
+                        <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop" alt="User Avatar">
+                    </div>
+                </div>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="leaderboard-container">
+        <div class="leaderboard-header">
+            <h1>Leaderboard</h1>
+            <p>Compete with thousands of students nationwide</p>
+        </div>
+
+        <div class="leaderboard-filters">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="overall">Overall</button>
+                <button class="filter-tab" data-filter="jee">JEE</button>
+                <button class="filter-tab" data-filter="neet">NEET</button>
+                <button class="filter-tab" data-filter="daily">Daily</button>
+                <button class="filter-tab" data-filter="weekly">Weekly</button>
+            </div>
+            <div class="filter-options">
+                <select class="filter-select" id="grade-filter">
+                    <option value="all">All Grades</option>
+                    <option value="11">Class 11</option>
+                    <option value="12">Class 12</option>
+                    <option value="dropper">Droppers</option>
+                </select>
+                <select class="filter-select" id="state-filter">
+                    <option value="all">All States</option>
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="rajasthan">Rajasthan</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="top-performers">
+            <div class="podium">
+                <div class="podium-position second">
+                    <div class="position-number">2</div>
+                    <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="Rank 2">
+                    <h3>Priya Sharma</h3>
+                    <p>3,245 points</p>
+                    <div class="medal silver">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                </div>
+                <div class="podium-position first">
+                    <div class="position-number">1</div>
+                    <img src="https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Rank 1">
+                    <h3>Rahul Kumar</h3>
+                    <p>3,567 points</p>
+                    <div class="medal gold">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                </div>
+                <div class="podium-position third">
+                    <div class="position-number">3</div>
+                    <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="Rank 3">
+                    <h3>Sneha Patel</h3>
+                    <p>3,123 points</p>
+                    <div class="medal bronze">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="leaderboard-content">
+            <div class="leaderboard-main">
+                <div class="leaderboard-table">
+                    <div class="table-header">
+                        <div class="header-cell rank">Rank</div>
+                        <div class="header-cell student">Student</div>
+                        <div class="header-cell score">Score</div>
+                        <div class="header-cell tests">Tests</div>
+                        <div class="header-cell streak">Streak</div>
+                        <div class="header-cell change">Change</div>
+                    </div>
+                    
+                    <div class="table-body" id="leaderboard-body">
+                        <!-- Leaderboard entries will be populated here -->
+                    </div>
+                </div>
+
+                <div class="pagination">
+                    <button class="btn btn-outline" id="prev-page" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                        Previous
+                    </button>
+                    <div class="page-numbers" id="page-numbers">
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <span>...</span>
+                        <button class="page-btn">50</button>
+                    </div>
+                    <button class="btn btn-outline" id="next-page">
+                        Next
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="leaderboard-sidebar">
+                <div class="user-rank-card">
+                    <h3>Your Ranking</h3>
+                    <div class="user-rank">
+                        <div class="rank-position">#156</div>
+                        <div class="rank-info">
+                            <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop" alt="Your Avatar">
+                            <div>
+                                <h4>Arjun Patel</h4>
+                                <p>2,847 points</p>
+                            </div>
+                        </div>
+                        <div class="rank-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+12</span>
+                        </div>
+                    </div>
+                    <div class="rank-progress">
+                        <p>Next rank in <strong>23 points</strong></p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 78%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="achievements-card">
+                    <h3>Recent Achievements</h3>
+                    <div class="achievement-list">
+                        <div class="achievement-item">
+                            <i class="fas fa-trophy gold"></i>
+                            <div>
+                                <h4>Top 200</h4>
+                                <p>Entered top 200 rankings</p>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-fire orange"></i>
+                            <div>
+                                <h4>20 Day Streak</h4>
+                                <p>Consistent daily practice</p>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-star purple"></i>
+                            <div>
+                                <h4>Perfect Score</h4>
+                                <p>100% in Physics test</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weekly-challenge">
+                    <h3>Weekly Challenge</h3>
+                    <div class="challenge-info">
+                        <div class="challenge-icon">
+                            <i class="fas fa-target"></i>
+                        </div>
+                        <div class="challenge-details">
+                            <h4>Climb 50 Ranks</h4>
+                            <p>Move up 50 positions this week</p>
+                            <div class="challenge-progress">
+                                <span>Progress: 12/50</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 24%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="challenge-reward">
+                        <i class="fas fa-gift"></i>
+                        <span>Reward: 500 bonus points</span>
+                    </div>
+                </div>
+
+                <div class="friends-ranking">
+                    <h3>Friends Ranking</h3>
+                    <div class="friends-list">
+                        <div class="friend-rank">
+                            <span class="friend-position">1</span>
+                            <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop" alt="Friend">
+                            <div class="friend-info">
+                                <h4>Priya Sharma</h4>
+                                <p>3,245 pts</p>
+                            </div>
+                        </div>
+                        <div class="friend-rank">
+                            <span class="friend-position">2</span>
+                            <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop" alt="You">
+                            <div class="friend-info">
+                                <h4>You</h4>
+                                <p>2,847 pts</p>
+                            </div>
+                        </div>
+                        <div class="friend-rank">
+                            <span class="friend-position">3</span>
+                            <img src="https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop" alt="Friend">
+                            <div class="friend-info">
+                                <h4>Rahul Kumar</h4>
+                                <p>2,756 pts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/leaderboard.js"></script>
+</body>
+</html>

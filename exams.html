@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Exams - YBY Innovations</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><h2>YBY Innovations</h2></a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="exams.html" class="nav-link active">Exams</a>
+                <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <div class="user-menu">
+                    <div class="user-avatar" id="user-avatar">
+                        <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop" alt="User Avatar">
+                    </div>
+                </div>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="exam-container">
+        <div class="exam-header">
+            <h1>Daily Practice Tests</h1>
+            <p>Challenge yourself with fresh questions every day</p>
+            <div class="exam-date">
+                <i class="fas fa-calendar"></i>
+                <span id="current-date"></span>
+            </div>
+        </div>
+
+        <div class="exam-selection" id="exam-selection">
+            <div class="exam-cards">
+                <div class="exam-card jee" onclick="startExam('jee')">
+                    <div class="exam-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h3>JEE Main Practice</h3>
+                    <div class="exam-details">
+                        <div class="detail">
+                            <i class="fas fa-clock"></i>
+                            <span>30 minutes</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-question-circle"></i>
+                            <span>30 questions</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-trophy"></i>
+                            <span>100 points max</span>
+                        </div>
+                    </div>
+                    <div class="exam-subjects">
+                        <span>Physics</span>
+                        <span>Chemistry</span>
+                        <span>Mathematics</span>
+                    </div>
+                    <button class="btn btn-primary">Start Test</button>
+                    <div class="exam-status" id="jee-status">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Completed Today</span>
+                    </div>
+                </div>
+
+                <div class="exam-card neet" onclick="startExam('neet')">
+                    <div class="exam-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>NEET Practice</h3>
+                    <div class="exam-details">
+                        <div class="detail">
+                            <i class="fas fa-clock"></i>
+                            <span>45 minutes</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-question-circle"></i>
+                            <span>45 questions</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-trophy"></i>
+                            <span>180 points max</span>
+                        </div>
+                    </div>
+                    <div class="exam-subjects">
+                        <span>Physics</span>
+                        <span>Chemistry</span>
+                        <span>Biology</span>
+                    </div>
+                    <button class="btn btn-primary">Start Test</button>
+                    <div class="exam-status" id="neet-status" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Completed Today</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="daily-challenge">
+                <h3>Today's Challenge</h3>
+                <p>Complete both JEE and NEET tests to earn bonus points and maintain your streak!</p>
+                <div class="challenge-progress">
+                    <div class="progress-item completed">
+                        <i class="fas fa-check"></i>
+                        <span>JEE Test</span>
+                    </div>
+                    <div class="progress-item">
+                        <i class="fas fa-circle"></i>
+                        <span>NEET Test</span>
+                    </div>
+                    <div class="progress-item">
+                        <i class="fas fa-gift"></i>
+                        <span>Bonus Points</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exam-interface" id="exam-interface" style="display: none;">
+            <div class="exam-sidebar">
+                <div class="exam-info">
+                    <h3 id="exam-title">JEE Main Practice</h3>
+                    <div class="timer">
+                        <i class="fas fa-clock"></i>
+                        <span id="timer-display">30:00</span>
+                    </div>
+                </div>
+                
+                <div class="question-navigator">
+                    <h4>Questions</h4>
+                    <div class="question-grid" id="question-grid">
+                        <!-- Question numbers will be generated here -->
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <span class="legend-color answered"></span>
+                            <span>Answered</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color marked"></span>
+                            <span>Marked</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color current"></span>
+                            <span>Current</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exam-actions">
+                    <button class="btn btn-outline" onclick="markForReview()">
+                        <i class="fas fa-bookmark"></i>
+                        Mark for Review
+                    </button>
+                    <button class="btn btn-danger" onclick="submitExam()">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Test
+                    </button>
+                </div>
+            </div>
+
+            <div class="exam-content">
+                <div class="question-header">
+                    <span class="question-number">Question <span id="current-question-num">1</span> of <span id="total-questions">30</span></span>
+                    <span class="question-subject" id="question-subject">Physics</span>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-text" id="question-text">
+                        <!-- Question will be loaded here -->
+                    </div>
+                    
+                    <div class="options-container" id="options-container">
+                        <!-- Options will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="question-navigation">
+                    <button class="btn btn-outline" onclick="previousQuestion()" id="prev-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="next-btn">
+                        Next
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="exam-result" id="exam-result" style="display: none;">
+            <div class="result-card">
+                <div class="result-header">
+                    <i class="fas fa-trophy"></i>
+                    <h2>Test Completed!</h2>
+                    <p>Great job on completing today's practice test</p>
+                </div>
+                
+                <div class="result-stats">
+                    <div class="stat">
+                        <h3 id="final-score">85</h3>
+                        <p>Score</p>
+                    </div>
+                    <div class="stat">
+                        <h3 id="correct-answers">25/30</h3>
+                        <p>Correct</p>
+                    </div>
+                    <div class="stat">
+                        <h3 id="time-taken">28:45</h3>
+                        <p>Time Taken</p>
+                    </div>
+                    <div class="stat">
+                        <h3 id="rank-change">+12</h3>
+                        <p>Rank Change</p>
+                    </div>
+                </div>
+
+                <div class="subject-breakdown">
+                    <h3>Subject-wise Performance</h3>
+                    <div class="subject-results">
+                        <div class="subject-result">
+                            <span class="subject">Physics</span>
+                            <span class="score">8/10</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="subject-result">
+                            <span class="subject">Chemistry</span>
+                            <span class="score">9/10</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="subject-result">
+                            <span class="subject">Mathematics</span>
+                            <span class="score">8/10</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="btn btn-outline" onclick="viewSolutions()">
+                        <i class="fas fa-eye"></i>
+                        View Solutions
+                    </button>
+                    <button class="btn btn-primary" onclick="backToExams()">
+                        <i class="fas fa-home"></i>
+                        Back to Exams
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareResult()">
+                        <i class="fas fa-share"></i>
+                        Share Result
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/exam.js"></script>
+</body>
+</html>

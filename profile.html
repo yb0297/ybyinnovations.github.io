@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - YBY Innovations</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><h2>YBY Innovations</h2></a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="exams.html" class="nav-link">Exams</a>
+                <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <div class="user-menu">
+                    <div class="user-avatar" id="user-avatar">
+                        <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop" alt="User Avatar">
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu">
+                        <a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a>
+                        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+                        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-cover">
+                <button class="edit-cover-btn" onclick="editCover()">
+                    <i class="fas fa-camera"></i>
+                </button>
+            </div>
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop" alt="Profile Picture" id="profile-picture">
+                    <button class="edit-avatar-btn" onclick="editAvatar()">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <div class="profile-details">
+                    <h1 id="profile-name">Arjun Patel</h1>
+                    <p id="profile-bio">JEE Aspirant | Class 12 | Targeting IIT Bombay</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <h3 id="total-score">2,847</h3>
+                            <p>Total Score</p>
+                        </div>
+                        <div class="stat">
+                            <h3 id="current-rank">#156</h3>
+                            <p>Current Rank</p>
+                        </div>
+                        <div class="stat">
+                            <h3 id="streak-count">23</h3>
+                            <p>Day Streak</p>
+                        </div>
+                        <div class="stat">
+                            <h3 id="tests-taken">89</h3>
+                            <p>Tests Taken</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="edit-profile-btn" onclick="toggleEditMode()">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-sidebar">
+                <div class="profile-card">
+                    <h3>About</h3>
+                    <div class="about-info">
+                        <div class="info-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Target: JEE Main/Advanced</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-school"></i>
+                            <span>Class 12, Science</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Mumbai, Maharashtra</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Joined March 2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Achievements</h3>
+                    <div class="achievements">
+                        <div class="achievement">
+                            <i class="fas fa-trophy gold"></i>
+                            <div>
+                                <h4>Top 100 Rank</h4>
+                                <p>Achieved rank under 100</p>
+                            </div>
+                        </div>
+                        <div class="achievement">
+                            <i class="fas fa-fire orange"></i>
+                            <div>
+                                <h4>20 Day Streak</h4>
+                                <p>Consistent daily practice</p>
+                            </div>
+                        </div>
+                        <div class="achievement">
+                            <i class="fas fa-medal silver"></i>
+                            <div>
+                                <h4>Physics Master</h4>
+                                <p>90%+ in Physics tests</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Study Goals</h3>
+                    <div class="goals">
+                        <div class="goal">
+                            <div class="goal-header">
+                                <span>Daily Practice</span>
+                                <span>23/30 days</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 77%"></div>
+                            </div>
+                        </div>
+                        <div class="goal">
+                            <div class="goal-header">
+                                <span>Target Rank</span>
+                                <span>156/100</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 64%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-main">
+                <div class="profile-tabs">
+                    <button class="tab-btn active" data-tab="activity">Recent Activity</button>
+                    <button class="tab-btn" data-tab="performance">Performance</button>
+                    <button class="tab-btn" data-tab="friends">Friends</button>
+                    <button class="tab-btn" data-tab="settings">Settings</button>
+                </div>
+
+                <div class="tab-content active" id="activity">
+                    <div class="activity-feed">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Achieved new rank #156</h4>
+                                <p>Moved up 12 positions in today's JEE practice test</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Completed NEET Biology Test</h4>
+                                <p>Scored 42/45 in today's biology practice</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>23-day streak milestone</h4>
+                                <p>Maintained consistent daily practice for 23 days</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="performance">
+                    <div class="performance-overview">
+                        <div class="performance-card">
+                            <h3>Subject-wise Performance</h3>
+                            <div class="subject-stats">
+                                <div class="subject-stat">
+                                    <div class="subject-info">
+                                        <span class="subject-name">Physics</span>
+                                        <span class="subject-score">87%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress physics" style="width: 87%"></div>
+                                    </div>
+                                </div>
+                                <div class="subject-stat">
+                                    <div class="subject-info">
+                                        <span class="subject-name">Chemistry</span>
+                                        <span class="subject-score">82%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress chemistry" style="width: 82%"></div>
+                                    </div>
+                                </div>
+                                <div class="subject-stat">
+                                    <div class="subject-info">
+                                        <span class="subject-name">Mathematics</span>
+                                        <span class="subject-score">79%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress mathematics" style="width: 79%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="performance-card">
+                            <h3>Recent Test Scores</h3>
+                            <div class="test-history">
+                                <div class="test-item">
+                                    <span class="test-date">Today</span>
+                                    <span class="test-name">JEE Physics</span>
+                                    <span class="test-score">28/30</span>
+                                </div>
+                                <div class="test-item">
+                                    <span class="test-date">Yesterday</span>
+                                    <span class="test-name">NEET Biology</span>
+                                    <span class="test-score">42/45</span>
+                                </div>
+                                <div class="test-item">
+                                    <span class="test-date">2 days ago</span>
+                                    <span class="test-name">JEE Chemistry</span>
+                                    <span class="test-score">25/30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="friends">
+                    <div class="friends-section">
+                        <div class="friends-header">
+                            <h3>Study Buddies (24)</h3>
+                            <button class="btn btn-primary">Find Friends</button>
+                        </div>
+                        <div class="friends-grid">
+                            <div class="friend-card">
+                                <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="Friend">
+                                <h4>Priya Sharma</h4>
+                                <p>Rank #89</p>
+                                <button class="btn btn-outline">Message</button>
+                            </div>
+                            <div class="friend-card">
+                                <img src="https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="Friend">
+                                <h4>Rahul Kumar</h4>
+                                <p>Rank #203</p>
+                                <button class="btn btn-outline">Message</button>
+                            </div>
+                            <div class="friend-card">
+                                <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="Friend">
+                                <h4>Sneha Patel</h4>
+                                <p>Rank #145</p>
+                                <button class="btn btn-outline">Message</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="settings">
+                    <div class="settings-section">
+                        <div class="settings-card">
+                            <h3>Profile Settings</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>Display Name</label>
+                                    <input type="text" value="Arjun Patel">
+                                </div>
+                                <div class="form-group">
+                                    <label>Bio</label>
+                                    <textarea>JEE Aspirant | Class 12 | Targeting IIT Bombay</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Target Exam</label>
+                                    <select>
+                                        <option>JEE Main/Advanced</option>
+                                        <option>NEET</option>
+                                        <option>Both</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+                        <div class="settings-card">
+                            <h3>Privacy Settings</h3>
+                            <div class="privacy-options">
+                                <div class="privacy-option">
+                                    <span>Show my rank publicly</span>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="privacy-option">
+                                    <span>Allow friend requests</span>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="privacy-option">
+                                    <span>Show activity to friends</span>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>
