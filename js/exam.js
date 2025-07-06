@@ -5,58 +5,7 @@ let examTimer = null;
 let timeRemaining = 0;
 let userAnswers = {};
 let markedQuestions = new Set();
-
-// Sample questions data
-const examQuestions = {
-    jee: [
-        {
-            id: 1,
-            subject: 'Physics',
-            question: 'A particle moves in a circle of radius R. What is the relationship between linear velocity v and angular velocity ω?',
-            options: ['v = ωR', 'v = ω/R', 'v = ω²R', 'v = R/ω'],
-            correct: 0
-        },
-        {
-            id: 2,
-            subject: 'Chemistry',
-            question: 'Which of the following is the most electronegative element?',
-            options: ['Oxygen', 'Fluorine', 'Nitrogen', 'Chlorine'],
-            correct: 1
-        },
-        {
-            id: 3,
-            subject: 'Mathematics',
-            question: 'What is the derivative of sin(x)?',
-            options: ['cos(x)', '-cos(x)', 'sin(x)', '-sin(x)'],
-            correct: 0
-        }
-        // Add more questions as needed
-    ],
-    neet: [
-        {
-            id: 1,
-            subject: 'Physics',
-            question: 'The SI unit of electric current is:',
-            options: ['Volt', 'Ampere', 'Ohm', 'Watt'],
-            correct: 1
-        },
-        {
-            id: 2,
-            subject: 'Chemistry',
-            question: 'The atomic number of carbon is:',
-            options: ['4', '6', '8', '12'],
-            correct: 1
-        },
-        {
-            id: 3,
-            subject: 'Biology',
-            question: 'The powerhouse of the cell is:',
-            options: ['Nucleus', 'Ribosome', 'Mitochondria', 'Golgi apparatus'],
-            correct: 2
-        }
-        // Add more questions as needed
-    ]
-};
+let examQuestions = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check if user is authenticated
@@ -102,28 +51,40 @@ function checkExamStatus() {
 }
 
 // Start exam
-function startExam(examType) {
-    currentExam = examType;
-    currentQuestionIndex = 0;
-    userAnswers = {};
-    markedQuestions = new Set();
-    
-    // Set timer based on exam type
-    timeRemaining = examType === 'jee' ? 30 * 60 : 45 * 60; // 30 or 45 minutes in seconds
-    
-    // Hide exam selection and show exam interface
-    document.getElementById('exam-selection').style.display = 'none';
-    document.getElementById('exam-interface').style.display = 'flex';
-    
-    // Initialize exam
-    initializeExam();
-    startTimer();
-    loadQuestion();
+async function startExam(examType) {
+    try {
+        // Fetch questions from server
+        examQuestions = await examAPI.getQuestions(examType);
+        
+        if (!examQuestions || examQuestions.length === 0) {
+            alert('No questions available for today. Please try again later.');
+            return;
+        }
+        
+        currentExam = examType;
+        currentQuestionIndex = 0;
+        userAnswers = {};
+        markedQuestions = new Set();
+        
+        // Set timer based on exam type
+        timeRemaining = examType === 'jee' ? 30 * 60 : 45 * 60; // 30 or 45 minutes in seconds
+        
+        // Hide exam selection and show exam interface
+        document.getElementById('exam-selection').style.display = 'none';
+        document.getElementById('exam-interface').style.display = 'flex';
+        
+        // Initialize exam
+        initializeExam();
+        startTimer();
+        loadQuestion();
+    } catch (error) {
+        console.error('Error starting exam:', error);
+        alert('Failed to start exam. Please try again.');
+    }
 }
 
 // Initialize exam interface
 function initializeExam() {
-    const questions = examQuestions[currentExam] || [];
     const examTitle = document.getElementById('exam-title');
     const totalQuestions = document.getElementById('total-questions');
     const questionGrid = document.getElementById('question-grid');
@@ -133,13 +94,13 @@ function initializeExam() {
     }
     
     if (totalQuestions) {
-        totalQuestions.textContent = questions.length;
+        totalQuestions.textContent = examQuestions.length;
     }
     
     // Generate question navigator
     if (questionGrid) {
         questionGrid.innerHTML = '';
-        questions.forEach((_, index) => {
+        examQuestions.forEach((_, index) => {
             const questionBtn = document.createElement('button');
             questionBtn.textContent = index + 1;
             questionBtn.className = 'question-btn';
@@ -174,8 +135,7 @@ function startTimer() {
 
 // Load current question
 function loadQuestion() {
-    const questions = examQuestions[currentExam] || [];
-    const question = questions[currentQuestionIndex];
+    const question = examQuestions[currentQuestionIndex];
     
     if (!question) return;
     
@@ -239,8 +199,7 @@ function loadQuestion() {
     }
     
     if (nextBtn) {
-        const questions = examQuestions[currentExam] || [];
-        if (currentQuestionIndex === questions.length - 1) {
+        if (currentQuestionIndex === examQuestions.length - 1) {
             nextBtn.textContent = 'Submit';
             nextBtn.onclick = submitExam;
         } else {
@@ -268,8 +227,7 @@ function previousQuestion() {
 
 // Go to next question
 function nextQuestion() {
-    const questions = examQuestions[currentExam] || [];
-    if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex < examQuestions.length - 1) {
         currentQuestionIndex++;
         loadQuestion();
     }
@@ -307,44 +265,53 @@ function updateQuestionNavigator() {
 }
 
 // Submit exam
-function submitExam() {
+async function submitExam() {
     if (examTimer) {
         clearInterval(examTimer);
     }
     
-    // Calculate results
-    const questions = examQuestions[currentExam] || [];
-    let correctAnswers = 0;
-    
-    questions.forEach((question, index) => {
-        if (userAnswers[index] === question.correct) {
-            correctAnswers++;
+    try {
+        const timeTaken = (currentExam === 'jee' ? 30 * 60 : 45 * 60) - timeRemaining;
+        
+        // Convert answers to array format
+        const answersArray = [];
+        for (let i = 0; i < examQuestions.length; i++) {
+            answersArray[i] = userAnswers[i] !== undefined ? userAnswers[i] : -1; // -1 for unanswered
         }
-    });
-    
-    const score = Math.round((correctAnswers / questions.length) * 100);
-    const timeTaken = (currentExam === 'jee' ? 30 * 60 : 45 * 60) - timeRemaining;
-    
-    // Store exam completion
-    const completedExams = JSON.parse(localStorage.getItem('completedExams') || '{}');
-    const today = new Date().toDateString();
-    
-    if (!completedExams[today]) {
-        completedExams[today] = [];
+        
+        const result = await examAPI.submitExam(currentExam, answersArray, timeTaken);
+        
+        // Store exam completion
+        const completedExams = JSON.parse(localStorage.getItem('completedExams') || '{}');
+        const today = new Date().toDateString();
+        
+        if (!completedExams[today]) {
+            completedExams[today] = [];
+        }
+        
+        if (!completedExams[today].includes(currentExam)) {
+            completedExams[today].push(currentExam);
+        }
+        
+        localStorage.setItem('completedExams', JSON.stringify(completedExams));
+        
+        // Update current user data
+        if (currentUser) {
+            currentUser.score += result.points;
+            currentUser.rank = result.newRank;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        }
+        
+        // Show results
+        showResults(result);
+    } catch (error) {
+        console.error('Error submitting exam:', error);
+        alert('Failed to submit exam. Please try again.');
     }
-    
-    if (!completedExams[today].includes(currentExam)) {
-        completedExams[today].push(currentExam);
-    }
-    
-    localStorage.setItem('completedExams', JSON.stringify(completedExams));
-    
-    // Show results
-    showResults(score, correctAnswers, questions.length, timeTaken);
 }
 
 // Show exam results
-function showResults(score, correct, total, timeTaken) {
+function showResults(result) {
     document.getElementById('exam-interface').style.display = 'none';
     document.getElementById('exam-result').style.display = 'block';
     
@@ -354,14 +321,63 @@ function showResults(score, correct, total, timeTaken) {
     const timeElement = document.getElementById('time-taken');
     const rankChange = document.getElementById('rank-change');
     
-    if (finalScore) finalScore.textContent = score;
-    if (correctAnswers) correctAnswers.textContent = `${correct}/${total}`;
+    if (finalScore) finalScore.textContent = result.score;
+    if (correctAnswers) correctAnswers.textContent = `${result.correctAnswers}/${result.totalQuestions}`;
     if (timeElement) {
-        const minutes = Math.floor(timeTaken / 60);
-        const seconds = timeTaken % 60;
+        const minutes = Math.floor(result.timeSpent / 60);
+        const seconds = result.timeSpent % 60;
         timeElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
     }
-    if (rankChange) rankChange.textContent = `+${Math.floor(Math.random() * 20) + 1}`;
+    if (rankChange) {
+        const change = result.rankChange;
+        rankChange.textContent = change > 0 ? `+${change}` : change.toString();
+        rankChange.className = change > 0 ? 'positive' : change < 0 ? 'negative' : 'neutral';
+    }
+    
+    // Update subject-wise breakdown if available
+    updateSubjectBreakdown(result.results);
+}
+
+// Update subject breakdown
+function updateSubjectBreakdown(results) {
+    const subjectResults = document.querySelector('.subject-results');
+    if (!subjectResults || !results) return;
+    
+    // Group results by subject
+    const subjectStats = {};
+    
+    results.forEach((result, index) => {
+        const question = examQuestions[index];
+        if (!question) return;
+        
+        const subject = question.subject;
+        if (!subjectStats[subject]) {
+            subjectStats[subject] = { correct: 0, total: 0 };
+        }
+        
+        subjectStats[subject].total++;
+        if (result.isCorrect) {
+            subjectStats[subject].correct++;
+        }
+    });
+    
+    // Update display
+    subjectResults.innerHTML = '';
+    Object.entries(subjectStats).forEach(([subject, stats]) => {
+        const percentage = Math.round((stats.correct / stats.total) * 100);
+        
+        const subjectDiv = document.createElement('div');
+        subjectDiv.className = 'subject-result';
+        subjectDiv.innerHTML = `
+            <span class="subject">${subject}</span>
+            <span class="score">${stats.correct}/${stats.total}</span>
+            <div class="progress-bar">
+                <div class="progress" style="width: ${percentage}%"></div>
+            </div>
+        `;
+        
+        subjectResults.appendChild(subjectDiv);
+    });
 }
 
 // View solutions

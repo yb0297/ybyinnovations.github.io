@@ -3,8 +3,10 @@ let currentUser = null;
 
 // Check if user is logged in
 function checkAuth() {
+    const token = localStorage.getItem('authToken');
     const user = localStorage.getItem('currentUser');
-    if (user) {
+    
+    if (token && user) {
         currentUser = JSON.parse(user);
         updateAuthUI();
         return true;
@@ -23,8 +25,8 @@ function updateAuthUI() {
         
         // Update user avatar and name if elements exist
         const userAvatar = document.querySelector('#user-avatar img');
-        if (userAvatar && currentUser.avatar) {
-            userAvatar.src = currentUser.avatar;
+        if (userAvatar) {
+            userAvatar.src = 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop';
         }
         
         const userName = document.querySelector('#profile-name');
@@ -38,53 +40,40 @@ function updateAuthUI() {
 }
 
 // Login function
-function login(email, password) {
-    // Simulate login - in real app, this would make API call
-    const user = {
-        id: 1,
-        name: 'Arjun Patel',
-        email: email,
-        avatar: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop',
-        rank: 156,
-        score: 2847,
-        streak: 23
-    };
-    
-    currentUser = user;
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    updateAuthUI();
-    
-    // Redirect to dashboard
-    window.location.href = 'dashboard.html';
+async function login(email, password) {
+    try {
+        const response = await authAPI.login(email, password);
+        
+        currentUser = response.user;
+        localStorage.setItem('currentUser', JSON.stringify(response.user));
+        updateAuthUI();
+        
+        // Redirect to dashboard
+        window.location.href = 'dashboard.html';
+    } catch (error) {
+        alert('Login failed: ' + error.message);
+    }
 }
 
 // Logout function
 function logout() {
-    currentUser = null;
-    localStorage.removeItem('currentUser');
-    updateAuthUI();
-    window.location.href = 'index.html';
+    authAPI.logout();
 }
 
 // Register function
-function register(userData) {
-    // Simulate registration - in real app, this would make API call
-    const user = {
-        id: Date.now(),
-        name: `${userData.firstName} ${userData.lastName}`,
-        email: userData.email,
-        avatar: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop',
-        rank: Math.floor(Math.random() * 1000) + 100,
-        score: Math.floor(Math.random() * 2000) + 500,
-        streak: 1
-    };
-    
-    currentUser = user;
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    updateAuthUI();
-    
-    // Redirect to dashboard
-    window.location.href = 'dashboard.html';
+async function register(userData) {
+    try {
+        const response = await authAPI.register(userData);
+        
+        currentUser = response.user;
+        localStorage.setItem('currentUser', JSON.stringify(response.user));
+        updateAuthUI();
+        
+        // Redirect to dashboard
+        window.location.href = 'dashboard.html';
+    } catch (error) {
+        alert('Registration failed: ' + error.message);
+    }
 }
 
 // Toggle password visibility

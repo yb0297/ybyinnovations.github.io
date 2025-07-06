@@ -1,0 +1,82 @@
+[
+  {
+    "id": "neet-001",
+    "subject": "Physics",
+    "question": "The SI unit of electric current is:",
+    "options": ["Volt", "Ampere", "Ohm", "Watt"],
+    "correct": 1,
+    "difficulty": "easy"
+  },
+  {
+    "id": "neet-002",
+    "subject": "Chemistry",
+    "question": "The atomic number of carbon is:",
+    "options": ["4", "6", "8", "12"],
+    "correct": 1,
+    "difficulty": "easy"
+  },
+  {
+    "id": "neet-003",
+    "subject": "Biology",
+    "question": "The powerhouse of the cell is:",
+    "options": ["Nucleus", "Ribosome", "Mitochondria", "Golgi apparatus"],
+    "correct": 2,
+    "difficulty": "easy"
+  },
+  {
+    "id": "neet-004",
+    "subject": "Physics",
+    "question": "Newton's first law of motion is also known as:",
+    "options": ["Law of inertia", "Law of acceleration", "Law of action-reaction", "Law of gravitation"],
+    "correct": 0,
+    "difficulty": "medium"
+  },
+  {
+    "id": "neet-005",
+    "subject": "Chemistry",
+    "question": "The pH of pure water at 25°C is:",
+    "options": ["6", "7", "8", "9"],
+    "correct": 1,
+    "difficulty": "easy"
+  },
+  {
+    "id": "neet-006",
+    "subject": "Biology",
+    "question": "DNA stands for:",
+    "options": ["Deoxyribonucleic acid", "Dinitrogen acid", "Diacetyl nucleic acid", "Deoxy nucleic acid"],
+    "correct": 0,
+    "difficulty": "easy"
+  },
+  {
+    "id": "neet-007",
+    "subject": "Physics",
+    "question": "The acceleration due to gravity on Earth is approximately:",
+    "options": ["9.8 m/s²", "10.8 m/s²", "8.8 m/s²", "11.8 m/s²"],
+    "correct": 0,
+    "difficulty": "easy"
+  },
+  {
+    "id": "neet-008",
+    "subject": "Chemistry",
+    "question": "The number of electrons in a neutral carbon atom is:",
+    "options": ["4", "6", "8", "12"],
+    "correct": 1,
+    "difficulty": "easy"
+  },
+  {
+    "id": "neet-009",
+    "subject": "Biology",
+    "question": "Photosynthesis occurs in:",
+    "options": ["Mitochondria", "Chloroplasts", "Nucleus", "Ribosomes"],
+    "correct": 1,
+    "difficulty": "easy"
+  },
+  {
+    "id": "neet-010",
+    "subject": "Physics",
+    "question": "The unit of frequency is:",
+    "options": ["Hertz", "Joule", "Newton", "Pascal"],
+    "correct": 0,
+    "difficulty": "easy"
+  }
+]

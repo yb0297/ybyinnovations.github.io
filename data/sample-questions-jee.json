@@ -1,0 +1,82 @@
+[
+  {
+    "id": "jee-001",
+    "subject": "Physics",
+    "question": "A particle moves in a circle of radius R. What is the relationship between linear velocity v and angular velocity ω?",
+    "options": ["v = ωR", "v = ω/R", "v = ω²R", "v = R/ω"],
+    "correct": 0,
+    "difficulty": "medium"
+  },
+  {
+    "id": "jee-002",
+    "subject": "Chemistry",
+    "question": "Which of the following is the most electronegative element?",
+    "options": ["Oxygen", "Fluorine", "Nitrogen", "Chlorine"],
+    "correct": 1,
+    "difficulty": "easy"
+  },
+  {
+    "id": "jee-003",
+    "subject": "Mathematics",
+    "question": "What is the derivative of sin(x)?",
+    "options": ["cos(x)", "-cos(x)", "sin(x)", "-sin(x)"],
+    "correct": 0,
+    "difficulty": "easy"
+  },
+  {
+    "id": "jee-004",
+    "subject": "Physics",
+    "question": "The SI unit of electric current is:",
+    "options": ["Volt", "Ampere", "Ohm", "Watt"],
+    "correct": 1,
+    "difficulty": "easy"
+  },
+  {
+    "id": "jee-005",
+    "subject": "Chemistry",
+    "question": "The atomic number of carbon is:",
+    "options": ["4", "6", "8", "12"],
+    "correct": 1,
+    "difficulty": "easy"
+  },
+  {
+    "id": "jee-006",
+    "subject": "Mathematics",
+    "question": "What is the integral of 1/x?",
+    "options": ["ln|x| + C", "x²/2 + C", "1/x² + C", "e^x + C"],
+    "correct": 0,
+    "difficulty": "medium"
+  },
+  {
+    "id": "jee-007",
+    "subject": "Physics",
+    "question": "Newton's second law of motion states that:",
+    "options": ["F = ma", "F = mv", "F = ma²", "F = m/a"],
+    "correct": 0,
+    "difficulty": "easy"
+  },
+  {
+    "id": "jee-008",
+    "subject": "Chemistry",
+    "question": "The molecular formula of water is:",
+    "options": ["H₂O", "HO₂", "H₃O", "H₂O₂"],
+    "correct": 0,
+    "difficulty": "easy"
+  },
+  {
+    "id": "jee-009",
+    "subject": "Mathematics",
+    "question": "The value of π (pi) is approximately:",
+    "options": ["3.14159", "2.71828", "1.41421", "1.73205"],
+    "correct": 0,
+    "difficulty": "easy"
+  },
+  {
+    "id": "jee-010",
+    "subject": "Physics",
+    "question": "The speed of light in vacuum is approximately:",
+    "options": ["3 × 10⁸ m/s", "3 × 10⁶ m/s", "3 × 10¹⁰ m/s", "3 × 10⁴ m/s"],
+    "correct": 0,
+    "difficulty": "medium"
+  }
+]

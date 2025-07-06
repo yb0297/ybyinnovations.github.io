@@ -2,14 +2,7 @@
 let currentFilter = 'overall';
 let currentPage = 1;
 const itemsPerPage = 20;
-
-// Sample leaderboard data
-const leaderboardData = [
-    { rank: 1, name: 'Rahul Kumar', avatar: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop', score: 3567, tests: 95, streak: 45, change: 0 },
-    { rank: 2, name: 'Priya Sharma', avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop', score: 3245, tests: 89, streak: 32, change: 1 },
-    { rank: 3, name: 'Sneha Patel', avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop', score: 3123, tests: 87, streak: 28, change: -1 },
-    // Add more sample data...
-];
+let leaderboardData = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check if user is authenticated
@@ -23,42 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Initialize leaderboard
-function initializeLeaderboard() {
-    generateSampleData();
-    loadLeaderboard();
+async function initializeLeaderboard() {
+    await loadLeaderboard();
     updateUserRank();
-}
-
-// Generate sample leaderboard data
-function generateSampleData() {
-    const names = ['Arjun Patel', 'Kavya Singh', 'Rohit Gupta', 'Ananya Reddy', 'Vikram Joshi'];
-    const avatars = [
-        'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop',
-        'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop',
-        'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop',
-        'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop'
-    ];
-    
-    // Generate more sample data
-    for (let i = leaderboardData.length; i < 200; i++) {
-        leaderboardData.push({
-            rank: i + 1,
-            name: names[Math.floor(Math.random() * names.length)],
-            avatar: avatars[Math.floor(Math.random() * avatars.length)],
-            score: Math.floor(Math.random() * 3000) + 500,
-            tests: Math.floor(Math.random() * 100) + 20,
-            streak: Math.floor(Math.random() * 50) + 1,
-            change: Math.floor(Math.random() * 21) - 10
-        });
-    }
-    
-    // Sort by score
-    leaderboardData.sort((a, b) => b.score - a.score);
-    
-    // Update ranks
-    leaderboardData.forEach((item, index) => {
-        item.rank = index + 1;
-    });
 }
 
 // Setup filter tabs
@@ -84,22 +44,66 @@ function setupFilterTabs() {
 }
 
 // Load leaderboard data
-function loadLeaderboard() {
+async function loadLeaderboard() {
+    try {
+        const response = await userAPI.getLeaderboard(currentFilter, currentPage, itemsPerPage);
+        leaderboardData = response.users;
+        
+        displayLeaderboard(leaderboardData);
+        updatePagination(response.currentPage, response.totalPages);
+    } catch (error) {
+        console.error('Error loading leaderboard:', error);
+        // Fallback to sample data
+        generateSampleData();
+        displayLeaderboard(leaderboardData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+        updatePagination(currentPage, Math.ceil(leaderboardData.length / itemsPerPage));
+    }
+}
+
+// Generate sample leaderboard data (fallback)
+function generateSampleData() {
+    const names = ['Rahul Kumar', 'Priya Sharma', 'Sneha Patel', 'Arjun Patel', 'Kavya Singh', 'Rohit Gupta', 'Ananya Reddy', 'Vikram Joshi'];
+    const avatars = [
+        'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop',
+        'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop',
+        'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop',
+        'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop'
+    ];
+    
+    leaderboardData = [];
+    
+    for (let i = 0; i < 200; i++) {
+        leaderboardData.push({
+            rank: i + 1,
+            name: names[Math.floor(Math.random() * names.length)],
+            avatar: avatars[Math.floor(Math.random() * avatars.length)],
+            score: Math.floor(Math.random() * 3000) + 500,
+            testsCompleted: Math.floor(Math.random() * 100) + 20,
+            streak: Math.floor(Math.random() * 50) + 1,
+            change: Math.floor(Math.random() * 21) - 10
+        });
+    }
+    
+    // Sort by score
+    leaderboardData.sort((a, b) => b.score - a.score);
+    
+    // Update ranks
+    leaderboardData.forEach((item, index) => {
+        item.rank = index + 1;
+    });
+}
+
+// Display leaderboard
+function displayLeaderboard(users) {
     const leaderboardBody = document.getElementById('leaderboard-body');
     if (!leaderboardBody) return;
     
     leaderboardBody.innerHTML = '';
     
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const pageData = leaderboardData.slice(startIndex, endIndex);
-    
-    pageData.forEach(student => {
+    users.forEach(student => {
         const row = createLeaderboardRow(student);
         leaderboardBody.appendChild(row);
     });
-    
-    updatePagination();
 }
 
 // Create leaderboard row
@@ -118,14 +122,14 @@ function createLeaderboardRow(student) {
             ${student.rank <= 3 ? `<i class="fas fa-medal ${student.rank === 1 ? 'gold' : student.rank === 2 ? 'silver' : 'bronze'}"></i>` : ''}
         </div>
         <div class="table-cell student">
-            <img src="${student.avatar}" alt="${student.name}">
+            <img src="${student.avatar || 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop'}" alt="${student.name}">
             <div class="student-info">
                 <h4>${student.name}</h4>
                 <p>Active student</p>
             </div>
         </div>
         <div class="table-cell score">${student.score.toLocaleString()}</div>
-        <div class="table-cell tests">${student.tests}</div>
+        <div class="table-cell tests">${student.testsCompleted}</div>
         <div class="table-cell streak">
             <span class="streak-badge">${student.streak}</span>
         </div>
@@ -140,11 +144,12 @@ function createLeaderboardRow(student) {
 }
 
 // Update pagination
-function updatePagination() {
-    const totalPages = Math.ceil(leaderboardData.length / itemsPerPage);
+function updatePagination(current, total) {
     const pageNumbers = document.getElementById('page-numbers');
     const prevBtn = document.getElementById('prev-page');
     const nextBtn = document.getElementById('next-page');
+    
+    currentPage = current;
     
     if (pageNumbers) {
         pageNumbers.innerHTML = '';
@@ -163,7 +168,7 @@ function updatePagination() {
         
         // Show current page and surrounding pages
         const start = Math.max(1, currentPage - 2);
-        const end = Math.min(totalPages, currentPage + 2);
+        const end = Math.min(total, currentPage + 2);
         
         for (let i = start; i <= end; i++) {
             const pageBtn = createPageButton(i);
@@ -174,14 +179,14 @@ function updatePagination() {
         }
         
         // Show last page
-        if (currentPage < totalPages - 2) {
-            if (currentPage < totalPages - 3) {
+        if (currentPage < total - 2) {
+            if (currentPage < total - 3) {
                 const dots = document.createElement('span');
                 dots.textContent = '...';
                 pageNumbers.appendChild(dots);
             }
             
-            const lastBtn = createPageButton(totalPages);
+            const lastBtn = createPageButton(total);
             pageNumbers.appendChild(lastBtn);
         }
     }
@@ -198,9 +203,9 @@ function updatePagination() {
     }
     
     if (nextBtn) {
-        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.disabled = currentPage === total;
         nextBtn.onclick = () => {
-            if (currentPage < totalPages) {
+            if (currentPage < total) {
                 currentPage++;
                 loadLeaderboard();
             }
@@ -224,19 +229,15 @@ function createPageButton(pageNum) {
 function updateUserRank() {
     if (!currentUser) return;
     
-    // Find user in leaderboard
-    const userRank = leaderboardData.find(student => student.name === currentUser.name);
+    const rankPosition = document.querySelector('.rank-position');
+    const rankChange = document.querySelector('.rank-change span');
     
-    if (userRank) {
-        const rankPosition = document.querySelector('.rank-position');
-        const rankChange = document.querySelector('.rank-change span');
-        
-        if (rankPosition) {
-            rankPosition.textContent = `#${userRank.rank}`;
-        }
-        
-        if (rankChange) {
-            rankChange.textContent = userRank.change > 0 ? `+${userRank.change}` : userRank.change;
-        }
+    if (rankPosition && currentUser.rank) {
+        rankPosition.textContent = `#${currentUser.rank}`;
+    }
+    
+    if (rankChange) {
+        const change = Math.floor(Math.random() * 21) - 10; // Random for demo
+        rankChange.textContent = change > 0 ? `+${change}` : change;
     }
 }
